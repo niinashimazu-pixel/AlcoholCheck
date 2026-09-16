@@ -9,45 +9,53 @@
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F3F6F7;
+    --bg:#F3F1EC;
     --surface:#FFFFFF;
-    --surface-2:#EEF3F3;
-    --ink:#152A31;
-    --ink-muted:#5C7078;
-    --border:#DDE6E8;
-    --brand:#164B5C;
-    --brand-2:#1F6E80;
-    --amber:#B9822C;
-    --amber-bg:#FBF0DC;
-    --danger:#A6432B;
-    --danger-bg:#F7E4DD;
-    --success:#276A4C;
-    --success-bg:#E1F0E6;
-    --chip-blank:#C7D1D4;
+    --surface-2:#ECE8E0;
+    --ink:#211B16;
+    --ink-muted:#7A6F63;
+    --border:#E2DCD1;
+    --brand:#8A5A2B;
+    --brand-2:#C77A2E;
+    --amber:#C4841A;
+    --amber-bg:#FBEBCE;
+    --danger:#C0392B;
+    --danger-bg:#FBE1DC;
+    --success:#2E7D46;
+    --success-bg:#DFF0E3;
+    --chip-blank:#D8D1C4;
+    --night:#181410;
+    --night-2:#241C14;
+    --signal-green:#4CC782;
+    --signal-green-glow:#7BEAA9;
+    --signal-amber:#F0A93B;
+    --signal-red:#E5604A;
+    --hero-ink:#F4EEE3;
+    --hero-ink-muted:#B9AD9B;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#0E1A1F;
-      --surface:#152329;
-      --surface-2:#1B2C33;
-      --ink:#E6EEF0;
-      --ink-muted:#8FA5AC;
-      --border:#26383F;
-      --brand:#5FB6C9;
-      --brand-2:#7FCADA;
-      --amber:#E3A94E;
-      --amber-bg:#3A2E16;
-      --danger:#E08268;
-      --danger-bg:#3B2420;
-      --success:#6FCB9B;
-      --success-bg:#1C3327;
-      --chip-blank:#3A4A50;
+      --bg:#151210;
+      --surface:#1F1A15;
+      --surface-2:#26201A;
+      --ink:#EFE7DA;
+      --ink-muted:#A79A87;
+      --border:#332B22;
+      --brand:#E2A257;
+      --brand-2:#F0B96C;
+      --amber:#F0B84C;
+      --amber-bg:#3A2C13;
+      --danger:#E88068;
+      --danger-bg:#3B2118;
+      --success:#6FCB93;
+      --success-bg:#1B3324;
+      --chip-blank:#3D362C;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#0E1A1F; --surface:#152329; --surface-2:#1B2C33; --ink:#E6EEF0; --ink-muted:#8FA5AC;
-    --border:#26383F; --brand:#5FB6C9; --brand-2:#7FCADA; --amber:#E3A94E; --amber-bg:#3A2E16;
-    --danger:#E08268; --danger-bg:#3B2420; --success:#6FCB9B; --success-bg:#1C3327; --chip-blank:#3A4A50;
+    --bg:#151210; --surface:#1F1A15; --surface-2:#26201A; --ink:#EFE7DA; --ink-muted:#A79A87;
+    --border:#332B22; --brand:#E2A257; --brand-2:#F0B96C; --amber:#F0B84C; --amber-bg:#3A2C13;
+    --danger:#E88068; --danger-bg:#3B2118; --success:#6FCB93; --success-bg:#1B3324; --chip-blank:#3D362C;
   }
 
   *{box-sizing:border-box;}
@@ -59,37 +67,53 @@
     line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 80px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:44px 24px 80px;}
 
   .masthead{
+    max-width:1080px; margin:0 auto;
     display:flex; justify-content:space-between; align-items:baseline;
-    border-bottom:2px solid var(--brand);
-    padding-bottom:18px; margin-bottom:36px; flex-wrap:wrap; gap:10px;
+    padding:26px 24px 18px; flex-wrap:wrap; gap:10px;
   }
-  .masthead .org{font-size:13px; letter-spacing:.04em; color:var(--ink-muted);}
-  .masthead .period{font-size:13px; color:var(--ink-muted); font-weight:500;}
+  .masthead .org{font-size:12.5px; letter-spacing:.05em; color:var(--ink-muted);}
+  .masthead .period{font-size:12.5px; color:var(--ink-muted); font-weight:500;}
+
+  .hero{
+    position:relative;
+    background:linear-gradient(135deg, #FBEFDD 0%, #F6E1C4 55%, #F3D8B6 100%);
+    color:var(--ink);
+    padding:52px 40px 44px;
+    margin-bottom:44px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:6px;
+    background-image:repeating-linear-gradient(90deg, var(--brand) 0 26px, transparent 26px 46px);
+    opacity:.4;
+  }
+  .hero-inner{
+    max-width:1080px; margin:0 auto;
+    display:grid; grid-template-columns:230px 1fr; gap:44px; align-items:center;
+    animation:heroIn .7s cubic-bezier(.22,.61,.36,1) both;
+  }
+  @keyframes heroIn{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-inner{ animation:none; }
+  }
+  @media (max-width:680px){ .hero-inner{grid-template-columns:1fr; text-align:center;} }
 
   h1{
     font-family:"Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
     font-weight:900;
-    font-size:clamp(26px, 4vw, 38px);
-    margin:6px 0 28px;
+    font-size:clamp(22px, 3.2vw, 30px);
+    margin:0 0 22px;
     letter-spacing:.01em;
     color:var(--ink);
+    line-height:1.4;
   }
-
-  .hero{
-    display:grid;
-    grid-template-columns:220px 1fr;
-    gap:36px;
-    align-items:center;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:6px;
-    padding:32px;
-    margin-bottom:40px;
-  }
-  @media (max-width:680px){ .hero{grid-template-columns:1fr; text-align:center;} }
 
   .gauge-label{
     font-family:"Zen Kaku Gothic New", sans-serif;
@@ -100,21 +124,50 @@
 
   .hero-text h2{
     font-family:"Zen Kaku Gothic New", sans-serif;
-    font-size:clamp(18px,2.6vw,23px);
+    font-size:clamp(19px,2.8vw,25px);
     font-weight:700;
     margin:0 0 14px;
     line-height:1.55;
+    color:var(--ink);
   }
   .hero-text p{margin:0; color:var(--ink-muted); font-size:14.5px;}
+
+  .trend{
+    margin-top:22px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  }
+  .trend-track{
+    position:relative; flex:1; min-width:180px; max-width:320px; height:10px;
+    background:rgba(0,0,0,.08); border-radius:5px;
+  }
+  .trend-track .fill{
+    position:absolute; left:0; top:0; height:100%; border-radius:5px;
+    background:linear-gradient(90deg, var(--signal-amber), var(--signal-green));
+    transition:width 1.1s cubic-bezier(.22,.61,.36,1);
+  }
+  .trend-track .mark{
+    position:absolute; top:-5px; width:2px; height:20px; background:var(--ink-muted);
+  }
+  .trend-nums{display:flex; align-items:baseline; gap:8px; font-family:"Zen Kaku Gothic New", sans-serif;}
+  .trend-nums .prev{font-size:15px; color:var(--ink-muted); font-weight:500;}
+  .trend-nums .arrow{color:var(--success); font-size:15px;}
+  .trend-nums .now{font-size:21px; color:var(--success); font-weight:900;}
+  .trend-delta{
+    font-size:12.5px; font-weight:700; color:#fff;
+    background:var(--success); padding:3px 12px; border-radius:20px; white-space:nowrap;
+  }
+  .trend-caption{font-size:11.5px; color:var(--ink-muted); margin-top:8px; width:100%;}
 
   .kpi-strip{
     display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:44px;
   }
   @media (max-width:680px){ .kpi-strip{grid-template-columns:repeat(2,1fr);} }
   .kpi{
-    background:var(--surface); border:1px solid var(--border); border-radius:6px;
-    padding:18px 18px 16px;
+    background:var(--surface); border:1px solid var(--border); border-top:3px solid var(--brand-2);
+    border-radius:4px; padding:18px 18px 16px;
+    transition:transform .18s ease, box-shadow .18s ease;
   }
+  .kpi:hover{ transform:translateY(-2px); box-shadow:0 6px 16px -8px rgba(0,0,0,.25); }
+  .kpi.err{border-top-color:var(--danger);}
   .kpi .num{font-family:"Zen Kaku Gothic New",sans-serif; font-weight:900; font-size:28px; color:var(--brand);}
   .kpi.err .num{color:var(--danger);}
   .kpi .lbl{font-size:12.5px; color:var(--ink-muted); margin-top:2px;}
@@ -122,7 +175,11 @@
   section{margin-bottom:48px;}
   .section-head{
     display:flex; align-items:baseline; gap:10px; margin-bottom:18px;
-    border-left:4px solid var(--brand); padding-left:12px;
+    padding-bottom:10px;
+    border-bottom:1px dashed var(--border);
+  }
+  .section-head::before{
+    content:""; width:9px; height:9px; border-radius:50%; background:var(--brand-2); flex:none;
   }
   .section-head h3{
     font-family:"Zen Kaku Gothic New", sans-serif; font-weight:700; font-size:19px; margin:0;
@@ -180,22 +237,25 @@
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <div class="masthead">
-    <div class="org">次の灯株式会社 ／ 経営企画室</div>
-    <div class="period" id="periodLabel"></div>
-  </div>
+<div class="masthead">
+  <div class="org">次の灯株式会社 ／ 経営企画室</div>
+  <div class="period" id="periodLabel"></div>
+</div>
 
-  <h1>アルコールチェック 週次コンプライアンスレポート</h1>
-
-  <div class="hero">
+<div class="hero">
+  <div class="hero-inner">
     <svg id="gauge" viewBox="0 0 200 200" width="200" height="200"></svg>
     <div class="hero-text">
+      <h1>アルコールチェック 週次コンプライアンスレポート</h1>
       <h2 id="heroHeadline"></h2>
       <p id="heroSub"></p>
+      <div class="trend" id="trendBadge"></div>
     </div>
   </div>
+</div>
+
+<div class="wrap">
 
   <div class="kpi-strip">
     <div class="kpi"><div class="num" id="kpiTarget"></div><div class="lbl">対象件数(人日)</div></div>
@@ -252,7 +312,7 @@
 </div>
 
 <script>
-const DATA = {"period": "2026/09/07 〜 2026/09/12", "dateLabels": ["9/7(月)", "9/8(火)", "9/9(水)", "9/10(木)", "9/11(金)", "9/12(土)"], "kpi": {"target": 57, "ok": 47, "error": 10, "rate": 82.5, "errRate": 17.5}, "errorBreakdown": {"noend": 7, "nostart": 3}, "deptSummary": [{"所属": "ケミカル販売事業部", "managed": 2, "errorCount": 1, "perfect": 1, "errRate": 50.0}, {"所属": "統括SCM本部", "managed": 4, "errorCount": 2, "perfect": 2, "errRate": 50.0}, {"所属": "リビルト販売事業部", "managed": 5, "errorCount": 2, "perfect": 3, "errRate": 40.0}, {"所属": "リサイクル事業部", "managed": 3, "errorCount": 1, "perfect": 2, "errRate": 33.3}, {"所属": "統合グロース戦略室", "managed": 4, "errorCount": 1, "perfect": 3, "errRate": 25.0}], "personGrid": [{"name": "山下 まい", "dept": "ケミカル販売事業部", "cells": ["", "", "", "noend", "ok", ""]}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "cells": ["", "ok", "ok", "ok", "ok", "ok"]}, {"name": "福浦 康太", "dept": "リサイクル事業部", "cells": ["", "nostart", "ok", "ok", "ok", ""]}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "cells": ["", "", "", "ok", "ok", ""]}, {"name": "青江 優志", "dept": "リサイクル事業部", "cells": ["ok", "", "ok", "ok", "ok", ""]}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "林 康介", "dept": "リビルト販売事業部", "cells": ["", "nostart", "noend", "", "noend", ""]}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "noend", "ok", ""]}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "津川 千優", "dept": "リビルト販売事業部", "cells": ["", "", "ok", "", "ok", ""]}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", ""]}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "noend", "noend", ""]}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", ""]}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "cells": ["", "", "", "", "noend", ""]}, {"name": "PARK  BYUNGGYU", "dept": "統括SCM本部", "cells": ["ok", "ok", "", "ok", "ok", "ok"]}, {"name": "宇野 耕作", "dept": "統括SCM本部", "cells": ["ok", "", "nostart", "ok", "", ""]}, {"name": "流田 雄介", "dept": "統括SCM本部", "cells": ["ok", "ok", "ok", "", "ok", ""]}], "issues": [{"name": "林 康介", "dept": "リビルト販売事業部", "count": 3}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "count": 2}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "count": 1}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "count": 1}, {"name": "宇野 耕作", "dept": "統括SCM本部", "count": 1}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "count": 1}, {"name": "福浦 康太", "dept": "リサイクル事業部", "count": 1}]};
+const DATA = {"period": "2026/09/07 〜 2026/09/12", "previous": {"label": "8月(月次)", "rate": 40.6}, "dateLabels": ["9/7(月)", "9/8(火)", "9/9(水)", "9/10(木)", "9/11(金)", "9/12(土)"], "kpi": {"target": 57, "ok": 47, "error": 10, "rate": 82.5, "errRate": 17.5}, "errorBreakdown": {"noend": 7, "nostart": 3}, "deptSummary": [{"所属": "ケミカル販売事業部", "managed": 2, "errorCount": 1, "perfect": 1, "errRate": 50.0}, {"所属": "統括SCM本部", "managed": 4, "errorCount": 2, "perfect": 2, "errRate": 50.0}, {"所属": "リビルト販売事業部", "managed": 5, "errorCount": 2, "perfect": 3, "errRate": 40.0}, {"所属": "リサイクル事業部", "managed": 3, "errorCount": 1, "perfect": 2, "errRate": 33.3}, {"所属": "統合グロース戦略室", "managed": 4, "errorCount": 1, "perfect": 3, "errRate": 25.0}], "personGrid": [{"name": "山下 まい", "dept": "ケミカル販売事業部", "cells": ["", "", "", "noend", "ok", ""]}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "cells": ["", "ok", "ok", "ok", "ok", "ok"]}, {"name": "福浦 康太", "dept": "リサイクル事業部", "cells": ["", "nostart", "ok", "ok", "ok", ""]}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "cells": ["", "", "", "ok", "ok", ""]}, {"name": "青江 優志", "dept": "リサイクル事業部", "cells": ["ok", "", "ok", "ok", "ok", ""]}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "林 康介", "dept": "リビルト販売事業部", "cells": ["", "nostart", "noend", "", "noend", ""]}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "noend", "ok", ""]}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "津川 千優", "dept": "リビルト販売事業部", "cells": ["", "", "ok", "", "ok", ""]}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", ""]}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "noend", "noend", ""]}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", ""]}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "cells": ["", "", "", "", "noend", ""]}, {"name": "PARK  BYUNGGYU", "dept": "統括SCM本部", "cells": ["ok", "ok", "", "ok", "ok", "ok"]}, {"name": "宇野 耕作", "dept": "統括SCM本部", "cells": ["ok", "", "nostart", "ok", "", ""]}, {"name": "流田 雄介", "dept": "統括SCM本部", "cells": ["ok", "ok", "ok", "", "ok", ""]}], "issues": [{"name": "林 康介", "dept": "リビルト販売事業部", "count": 3}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "count": 2}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "count": 1}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "count": 1}, {"name": "宇野 耕作", "dept": "統括SCM本部", "count": 1}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "count": 1}, {"name": "福浦 康太", "dept": "リサイクル事業部", "count": 1}]};
 
 function el(tag, cls, html){
   const e = document.createElement(tag);
@@ -261,13 +321,43 @@ function el(tag, cls, html){
   return e;
 }
 
+function animateNumber(node, target, opts){
+  opts = opts || {};
+  const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : (opts.duration || 900);
+  const decimals = opts.decimals || 0;
+  const suffix = opts.suffix || '';
+  if(duration === 0){ node.textContent = target.toFixed(decimals) + suffix; return; }
+  const start = performance.now();
+  function frame(now){
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    const val = target * eased;
+    node.textContent = val.toFixed(decimals) + suffix;
+    if(t < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+function growBar(fillNode, targetPercent){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    fillNode.style.width = targetPercent + '%';
+    return;
+  }
+  fillNode.style.width = '0%';
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      fillNode.style.width = targetPercent + '%';
+    });
+  });
+}
+
 document.getElementById('periodLabel').textContent = '対象期間: ' + DATA.period;
 document.getElementById('footerPeriod').textContent = '対象期間: ' + DATA.period;
 
-document.getElementById('kpiTarget').textContent = DATA.kpi.target + '件';
-document.getElementById('kpiOk').textContent = DATA.kpi.ok + '件';
-document.getElementById('kpiErr').textContent = DATA.kpi.error + '件';
-document.getElementById('kpiErrRate').textContent = DATA.kpi.errRate + '%';
+animateNumber(document.getElementById('kpiTarget'), DATA.kpi.target, {suffix:'件'});
+animateNumber(document.getElementById('kpiOk'), DATA.kpi.ok, {suffix:'件', duration:1000});
+animateNumber(document.getElementById('kpiErr'), DATA.kpi.error, {suffix:'件', duration:1100});
+animateNumber(document.getElementById('kpiErrRate'), DATA.kpi.errRate, {suffix:'%', decimals:1, duration:1200});
 
 document.getElementById('heroHeadline').textContent =
   '今週の実施率は ' + DATA.kpi.rate + '% でした';
@@ -275,36 +365,97 @@ document.getElementById('heroSub').textContent =
   '対象57件(人日)のうち、開始・終了とも記録できたのは ' + DATA.kpi.ok + ' 件。' +
   '残り ' + DATA.kpi.error + ' 件は、乗車前または降車後のいずれかの検知が未記録でした。';
 
+// --- 前回比トレンド ---
+(function drawTrend(){
+  if(!DATA.previous) return;
+  const wrap = document.getElementById('trendBadge');
+  const prevRate = DATA.previous.rate;
+  const nowRate = DATA.kpi.rate;
+  const delta = Math.round((nowRate - prevRate) * 10) / 10;
+  const sign = delta >= 0 ? '+' : '';
+
+  const row = el('div','', '');
+  row.style.display = 'flex';
+  row.style.alignItems = 'center';
+  row.style.gap = '16px';
+  row.style.flexWrap = 'wrap';
+  row.style.width = '100%';
+
+  const nums = el('div','trend-nums');
+  nums.innerHTML =
+    '<span class="prev">' + DATA.previous.label + ' ' + prevRate + '%</span>' +
+    '<span class="arrow">→</span>' +
+    '<span class="now">' + DATA.period.split(' ')[0].slice(5) + '〜 ' + nowRate + '%</span>';
+  row.appendChild(nums);
+
+  const track = el('div','trend-track');
+  const fill = el('div','fill');
+  fill.style.width = '0%';
+  track.appendChild(fill);
+  const mark = el('div','mark');
+  mark.style.left = prevRate + '%';
+  track.appendChild(mark);
+  row.appendChild(track);
+  growBar(fill, nowRate);
+
+  const delta_el = el('div','trend-delta', sign + delta + 'pt');
+  row.appendChild(delta_el);
+
+  wrap.appendChild(row);
+  wrap.appendChild(el('div','trend-caption',
+    '※「' + DATA.previous.label + '」は予約データを含む完全な突合値、今回は検知ログのみの暫定値のため、単純比較の参考値です。'));
+})();
+
 // --- ゲージ描画 ---
 (function drawGauge(){
   const svg = document.getElementById('gauge');
   const cx = 100, cy = 100, r = 78;
   const circumference = 2 * Math.PI * r;
   const rate = DATA.kpi.rate / 100;
+  const signalColor = DATA.kpi.rate >= 70 ? 'var(--signal-green)' : (DATA.kpi.rate >= 40 ? 'var(--signal-amber)' : 'var(--signal-red)');
+
+  const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+  const glow = document.createElementNS('http://www.w3.org/2000/svg','filter');
+  glow.setAttribute('id','glow');
+  glow.innerHTML = '<feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>';
+  defs.appendChild(glow);
+  svg.appendChild(defs);
+
   const bg = document.createElementNS('http://www.w3.org/2000/svg','circle');
   bg.setAttribute('cx',cx); bg.setAttribute('cy',cy); bg.setAttribute('r',r);
   bg.setAttribute('fill','none');
-  bg.setAttribute('stroke','var(--surface-2)');
-  bg.setAttribute('stroke-width','16');
+  bg.setAttribute('stroke','rgba(0,0,0,.08)');
+  bg.setAttribute('stroke-width','14');
   svg.appendChild(bg);
 
   const fg = document.createElementNS('http://www.w3.org/2000/svg','circle');
   fg.setAttribute('cx',cx); fg.setAttribute('cy',cy); fg.setAttribute('r',r);
   fg.setAttribute('fill','none');
-  fg.setAttribute('stroke','var(--brand-2)');
-  fg.setAttribute('stroke-width','16');
+  fg.setAttribute('stroke',signalColor);
+  fg.setAttribute('stroke-width','14');
   fg.setAttribute('stroke-linecap','round');
-  fg.setAttribute('stroke-dasharray', (circumference*rate) + ' ' + circumference);
+  fg.setAttribute('stroke-dasharray', '0 ' + circumference);
   fg.setAttribute('transform', 'rotate(-90 ' + cx + ' ' + cy + ')');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduceMotion) fg.style.transition = 'stroke-dasharray 1.1s cubic-bezier(.22,.61,.36,1)';
   svg.appendChild(fg);
+  if(reduceMotion){
+    fg.setAttribute('stroke-dasharray', (circumference*rate) + ' ' + circumference);
+  } else {
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        fg.setAttribute('stroke-dasharray', (circumference*rate) + ' ' + circumference);
+      });
+    });
+  }
 
   const num = document.createElementNS('http://www.w3.org/2000/svg','text');
   num.setAttribute('x',cx); num.setAttribute('y',cy-2);
   num.setAttribute('text-anchor','middle');
   num.setAttribute('font-size','36');
   num.setAttribute('class','gauge-label');
-  num.textContent = DATA.kpi.rate + '%';
   svg.appendChild(num);
+  animateNumber(num, DATA.kpi.rate, {suffix:'%', decimals:1, duration:1100});
 
   const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
   sub.setAttribute('x',cx); sub.setAttribute('y',cy+24);
@@ -328,11 +479,11 @@ document.getElementById('heroSub').textContent =
     row.appendChild(el('div','name', r.label + '<br><span style="color:var(--ink-muted);font-size:11.5px;">' + r.desc + '</span>'));
     const track = el('div','bar-track');
     const fill = el('div','bar-fill ' + r.cls);
-    fill.style.width = (r.count/max*100) + '%';
     track.appendChild(fill);
     row.appendChild(track);
     row.appendChild(el('div','val', r.count + '件'));
     wrap.appendChild(row);
+    growBar(fill, r.count/max*100);
   });
 })();
 
@@ -345,11 +496,11 @@ document.getElementById('heroSub').textContent =
     row.appendChild(el('div','name', d['所属']));
     const track = el('div','bar-track');
     const fill = el('div','bar-fill');
-    fill.style.width = (d.errRate/max*100) + '%';
     track.appendChild(fill);
     row.appendChild(track);
     row.appendChild(el('div','val', d.errorCount + '/' + d.managed + '名'));
     wrap.appendChild(row);
+    growBar(fill, d.errRate/max*100);
   });
 })();
 
