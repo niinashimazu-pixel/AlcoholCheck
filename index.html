@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>アルコールチェック 週次コンプライアンスレポート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3F6F7;
+    --surface:#FFFFFF;
+    --surface-2:#EEF3F3;
+    --ink:#152A31;
+    --ink-muted:#5C7078;
+    --border:#DDE6E8;
+    --brand:#164B5C;
+    --brand-2:#1F6E80;
+    --amber:#B9822C;
+    --amber-bg:#FBF0DC;
+    --danger:#A6432B;
+    --danger-bg:#F7E4DD;
+    --success:#276A4C;
+    --success-bg:#E1F0E6;
+    --chip-blank:#C7D1D4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E1A1F;
+      --surface:#152329;
+      --surface-2:#1B2C33;
+      --ink:#E6EEF0;
+      --ink-muted:#8FA5AC;
+      --border:#26383F;
+      --brand:#5FB6C9;
+      --brand-2:#7FCADA;
+      --amber:#E3A94E;
+      --amber-bg:#3A2E16;
+      --danger:#E08268;
+      --danger-bg:#3B2420;
+      --success:#6FCB9B;
+      --success-bg:#1C3327;
+      --chip-blank:#3A4A50;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E1A1F; --surface:#152329; --surface-2:#1B2C33; --ink:#E6EEF0; --ink-muted:#8FA5AC;
+    --border:#26383F; --brand:#5FB6C9; --brand-2:#7FCADA; --amber:#E3A94E; --amber-bg:#3A2E16;
+    --danger:#E08268; --danger-bg:#3B2420; --success:#6FCB9B; --success-bg:#1C3327; --chip-blank:#3A4A50;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Noto Sans JP", "Hiragino Sans", sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 80px;}
+
+  .masthead{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-bottom:2px solid var(--brand);
+    padding-bottom:18px; margin-bottom:36px; flex-wrap:wrap; gap:10px;
+  }
+  .masthead .org{font-size:13px; letter-spacing:.04em; color:var(--ink-muted);}
+  .masthead .period{font-size:13px; color:var(--ink-muted); font-weight:500;}
+
+  h1{
+    font-family:"Zen Kaku Gothic New", "Noto Sans JP", sans-serif;
+    font-weight:900;
+    font-size:clamp(26px, 4vw, 38px);
+    margin:6px 0 28px;
+    letter-spacing:.01em;
+    color:var(--ink);
+  }
+
+  .hero{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:36px;
+    align-items:center;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:32px;
+    margin-bottom:40px;
+  }
+  @media (max-width:680px){ .hero{grid-template-columns:1fr; text-align:center;} }
+
+  .gauge-label{
+    font-family:"Zen Kaku Gothic New", sans-serif;
+    font-weight:900;
+    fill:var(--ink);
+  }
+  .gauge-sub{fill:var(--ink-muted); font-family:"Noto Sans JP", sans-serif;}
+
+  .hero-text h2{
+    font-family:"Zen Kaku Gothic New", sans-serif;
+    font-size:clamp(18px,2.6vw,23px);
+    font-weight:700;
+    margin:0 0 14px;
+    line-height:1.55;
+  }
+  .hero-text p{margin:0; color:var(--ink-muted); font-size:14.5px;}
+
+  .kpi-strip{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:44px;
+  }
+  @media (max-width:680px){ .kpi-strip{grid-template-columns:repeat(2,1fr);} }
+  .kpi{
+    background:var(--surface); border:1px solid var(--border); border-radius:6px;
+    padding:18px 18px 16px;
+  }
+  .kpi .num{font-family:"Zen Kaku Gothic New",sans-serif; font-weight:900; font-size:28px; color:var(--brand);}
+  .kpi.err .num{color:var(--danger);}
+  .kpi .lbl{font-size:12.5px; color:var(--ink-muted); margin-top:2px;}
+
+  section{margin-bottom:48px;}
+  .section-head{
+    display:flex; align-items:baseline; gap:10px; margin-bottom:18px;
+    border-left:4px solid var(--brand); padding-left:12px;
+  }
+  .section-head h3{
+    font-family:"Zen Kaku Gothic New", sans-serif; font-weight:700; font-size:19px; margin:0;
+  }
+  .section-head .note{font-size:12.5px; color:var(--ink-muted);}
+
+  .bars{display:flex; flex-direction:column; gap:12px;}
+  .bar-row{display:grid; grid-template-columns:150px 1fr 64px; align-items:center; gap:12px;}
+  .bar-row .name{font-size:13.5px; color:var(--ink);}
+  .bar-track{background:var(--surface-2); border-radius:3px; height:20px; overflow:hidden; position:relative;}
+  .bar-fill{height:100%; border-radius:3px 0 0 3px; transition:width .5s ease;}
+  .bar-row .val{font-size:13px; color:var(--ink-muted); text-align:right; font-weight:600;}
+
+  .dept-bars .bar-fill{background:var(--danger);}
+  .err-bars .bar-fill.noend{background:var(--amber);}
+  .err-bars .bar-fill.nostart{background:var(--brand-2);}
+
+  table.grid{border-collapse:collapse; width:100%; font-size:13px;}
+  table.grid th, table.grid td{padding:7px 8px; text-align:center; border-bottom:1px solid var(--border);}
+  table.grid th{color:var(--ink-muted); font-weight:600; font-size:12px;}
+  table.grid td.name-cell{text-align:left; font-weight:500; white-space:nowrap;}
+  table.grid tr.dept-head td{
+    background:var(--surface-2); font-weight:700; color:var(--brand);
+    padding-top:14px; padding-bottom:6px; text-align:left; border-bottom:1px solid var(--border);
+  }
+  .chip{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:26px; height:26px; border-radius:50%; font-size:12px; font-weight:700;
+  }
+  .chip.ok{background:var(--success-bg); color:var(--success);}
+  .chip.noend{background:var(--amber-bg); color:var(--amber);}
+  .chip.nostart{background:var(--amber-bg); color:var(--amber);}
+  .chip.blank{width:6px; height:6px; background:var(--chip-blank); margin:auto;}
+
+  .legend{display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; font-size:12.5px; color:var(--ink-muted);}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .legend .dot{width:14px; height:14px; border-radius:50%; display:inline-block;}
+
+  .callout{
+    background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--amber);
+    border-radius:6px; padding:22px 26px;
+  }
+  .callout p.lead{margin:0 0 14px; font-size:14px; color:var(--ink);}
+  .callout ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .callout li{display:flex; justify-content:space-between; font-size:14px; border-bottom:1px dashed var(--border); padding-bottom:8px;}
+  .callout li:last-child{border-bottom:none;}
+  .callout .who{font-weight:600;}
+  .callout .dept{color:var(--ink-muted); font-weight:400; font-size:12.5px; margin-left:8px;}
+  .callout .cnt{color:var(--amber); font-weight:700; white-space:nowrap;}
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1px solid var(--border);
+    font-size:12px; color:var(--ink-muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="org">次の灯株式会社 ／ 経営企画室</div>
+    <div class="period" id="periodLabel"></div>
+  </div>
+
+  <h1>アルコールチェック 週次コンプライアンスレポート</h1>
+
+  <div class="hero">
+    <svg id="gauge" viewBox="0 0 200 200" width="200" height="200"></svg>
+    <div class="hero-text">
+      <h2 id="heroHeadline"></h2>
+      <p id="heroSub"></p>
+    </div>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="num" id="kpiTarget"></div><div class="lbl">対象件数(人日)</div></div>
+    <div class="kpi"><div class="num" id="kpiOk"></div><div class="lbl">正常件数</div></div>
+    <div class="kpi err"><div class="num" id="kpiErr"></div><div class="lbl">エラー件数</div></div>
+    <div class="kpi err"><div class="num" id="kpiErrRate"></div><div class="lbl">エラー率</div></div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <h3>チェック忘れの内訳</h3>
+      <span class="note">開始・終了どちらの検知が漏れたか</span>
+    </div>
+    <div class="bars err-bars" id="errBars"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h3>事業部別の状況</h3>
+      <span class="note">エラー率が高い事業部順</span>
+    </div>
+    <div class="bars dept-bars" id="deptBars"></div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h3>氏名別 実施状況</h3>
+      <span class="note">事業部ごとにグルーピング</span>
+    </div>
+    <table class="grid" id="personGrid"></table>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--success-bg); border:2px solid var(--success);"></span>実施済</span>
+      <span><span class="dot" style="background:var(--amber-bg); border:2px solid var(--amber);"></span>開始または終了のいずれか未記録</span>
+      <span><span class="dot" style="background:var(--chip-blank); width:8px; height:8px;"></span>当日の運行記録なし</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h3>ご協力のお願い</h3>
+      <span class="note">今週、未記録が1回以上あった方</span>
+    </div>
+    <div class="callout">
+      <p class="lead">乗車前・降車後、両方の検知にご協力をお願いします。</p>
+      <ul id="issueList"></ul>
+    </div>
+  </section>
+
+  <footer>
+    <span id="footerPeriod"></span>
+    <span>作成: アルコールチェック運用管理(経営企画室)</span>
+  </footer>
+
+</div>
+
+<script>
+const DATA = {"period": "2026/09/07 〜 2026/09/12", "dateLabels": ["9/7(月)", "9/8(火)", "9/9(水)", "9/10(木)", "9/11(金)", "9/12(土)"], "kpi": {"target": 57, "ok": 47, "error": 10, "rate": 82.5, "errRate": 17.5}, "errorBreakdown": {"noend": 7, "nostart": 3}, "deptSummary": [{"所属": "ケミカル販売事業部", "managed": 2, "errorCount": 1, "perfect": 1, "errRate": 50.0}, {"所属": "統括SCM本部", "managed": 4, "errorCount": 2, "perfect": 2, "errRate": 50.0}, {"所属": "リビルト販売事業部", "managed": 5, "errorCount": 2, "perfect": 3, "errRate": 40.0}, {"所属": "リサイクル事業部", "managed": 3, "errorCount": 1, "perfect": 2, "errRate": 33.3}, {"所属": "統合グロース戦略室", "managed": 4, "errorCount": 1, "perfect": 3, "errRate": 25.0}], "personGrid": [{"name": "山下 まい", "dept": "ケミカル販売事業部", "cells": ["", "", "", "noend", "ok", ""]}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "cells": ["", "ok", "ok", "ok", "ok", "ok"]}, {"name": "福浦 康太", "dept": "リサイクル事業部", "cells": ["", "nostart", "ok", "ok", "ok", ""]}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "cells": ["", "", "", "ok", "ok", ""]}, {"name": "青江 優志", "dept": "リサイクル事業部", "cells": ["ok", "", "ok", "ok", "ok", ""]}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "林 康介", "dept": "リビルト販売事業部", "cells": ["", "nostart", "noend", "", "noend", ""]}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "noend", "ok", ""]}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "津川 千優", "dept": "リビルト販売事業部", "cells": ["", "", "ok", "", "ok", ""]}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", ""]}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "noend", "noend", ""]}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", ""]}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "cells": ["", "", "", "", "noend", ""]}, {"name": "PARK  BYUNGGYU", "dept": "統括SCM本部", "cells": ["ok", "ok", "", "ok", "ok", "ok"]}, {"name": "宇野 耕作", "dept": "統括SCM本部", "cells": ["ok", "", "nostart", "ok", "", ""]}, {"name": "流田 雄介", "dept": "統括SCM本部", "cells": ["ok", "ok", "ok", "", "ok", ""]}], "issues": [{"name": "林 康介", "dept": "リビルト販売事業部", "count": 3}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "count": 2}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "count": 1}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "count": 1}, {"name": "宇野 耕作", "dept": "統括SCM本部", "count": 1}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "count": 1}, {"name": "福浦 康太", "dept": "リサイクル事業部", "count": 1}]};
+
+function el(tag, cls, html){
+  const e = document.createElement(tag);
+  if(cls) e.className = cls;
+  if(html !== undefined) e.innerHTML = html;
+  return e;
+}
+
+document.getElementById('periodLabel').textContent = '対象期間: ' + DATA.period;
+document.getElementById('footerPeriod').textContent = '対象期間: ' + DATA.period;
+
+document.getElementById('kpiTarget').textContent = DATA.kpi.target + '件';
+document.getElementById('kpiOk').textContent = DATA.kpi.ok + '件';
+document.getElementById('kpiErr').textContent = DATA.kpi.error + '件';
+document.getElementById('kpiErrRate').textContent = DATA.kpi.errRate + '%';
+
+document.getElementById('heroHeadline').textContent =
+  '今週の実施率は ' + DATA.kpi.rate + '% でした';
+document.getElementById('heroSub').textContent =
+  '対象57件(人日)のうち、開始・終了とも記録できたのは ' + DATA.kpi.ok + ' 件。' +
+  '残り ' + DATA.kpi.error + ' 件は、乗車前または降車後のいずれかの検知が未記録でした。';
+
+// --- ゲージ描画 ---
+(function drawGauge(){
+  const svg = document.getElementById('gauge');
+  const cx = 100, cy = 100, r = 78;
+  const circumference = 2 * Math.PI * r;
+  const rate = DATA.kpi.rate / 100;
+  const bg = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  bg.setAttribute('cx',cx); bg.setAttribute('cy',cy); bg.setAttribute('r',r);
+  bg.setAttribute('fill','none');
+  bg.setAttribute('stroke','var(--surface-2)');
+  bg.setAttribute('stroke-width','16');
+  svg.appendChild(bg);
+
+  const fg = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  fg.setAttribute('cx',cx); fg.setAttribute('cy',cy); fg.setAttribute('r',r);
+  fg.setAttribute('fill','none');
+  fg.setAttribute('stroke','var(--brand-2)');
+  fg.setAttribute('stroke-width','16');
+  fg.setAttribute('stroke-linecap','round');
+  fg.setAttribute('stroke-dasharray', (circumference*rate) + ' ' + circumference);
+  fg.setAttribute('transform', 'rotate(-90 ' + cx + ' ' + cy + ')');
+  svg.appendChild(fg);
+
+  const num = document.createElementNS('http://www.w3.org/2000/svg','text');
+  num.setAttribute('x',cx); num.setAttribute('y',cy-2);
+  num.setAttribute('text-anchor','middle');
+  num.setAttribute('font-size','36');
+  num.setAttribute('class','gauge-label');
+  num.textContent = DATA.kpi.rate + '%';
+  svg.appendChild(num);
+
+  const sub = document.createElementNS('http://www.w3.org/2000/svg','text');
+  sub.setAttribute('x',cx); sub.setAttribute('y',cy+24);
+  sub.setAttribute('text-anchor','middle');
+  sub.setAttribute('font-size','12');
+  sub.setAttribute('class','gauge-sub');
+  sub.textContent = '実施率';
+  svg.appendChild(sub);
+})();
+
+// --- チェック忘れ内訳 ---
+(function drawErrBars(){
+  const wrap = document.getElementById('errBars');
+  const rows = [
+    {label:'帰着後チェック忘れ', desc:'乗車前のみ検知', count:DATA.errorBreakdown.noend, cls:'noend'},
+    {label:'出発前チェック忘れ', desc:'乗車後のみ検知', count:DATA.errorBreakdown.nostart, cls:'nostart'}
+  ];
+  const max = Math.max.apply(null, rows.map(r=>r.count)) || 1;
+  rows.forEach(r=>{
+    const row = el('div','bar-row');
+    row.appendChild(el('div','name', r.label + '<br><span style="color:var(--ink-muted);font-size:11.5px;">' + r.desc + '</span>'));
+    const track = el('div','bar-track');
+    const fill = el('div','bar-fill ' + r.cls);
+    fill.style.width = (r.count/max*100) + '%';
+    track.appendChild(fill);
+    row.appendChild(track);
+    row.appendChild(el('div','val', r.count + '件'));
+    wrap.appendChild(row);
+  });
+})();
+
+// --- 事業部別バー ---
+(function drawDeptBars(){
+  const wrap = document.getElementById('deptBars');
+  const max = Math.max.apply(null, DATA.deptSummary.map(d=>d.errRate)) || 1;
+  DATA.deptSummary.forEach(d=>{
+    const row = el('div','bar-row');
+    row.appendChild(el('div','name', d['所属']));
+    const track = el('div','bar-track');
+    const fill = el('div','bar-fill');
+    fill.style.width = (d.errRate/max*100) + '%';
+    track.appendChild(fill);
+    row.appendChild(track);
+    row.appendChild(el('div','val', d.errorCount + '/' + d.managed + '名'));
+    wrap.appendChild(row);
+  });
+})();
+
+// --- 氏名別グリッド ---
+(function drawGrid(){
+  const table = document.getElementById('personGrid');
+  const thead = el('thead');
+  const headRow = el('tr');
+  headRow.appendChild(el('th','', '氏名'));
+  DATA.dateLabels.forEach(d=> headRow.appendChild(el('th','', d)));
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  const tbody = el('tbody');
+  let currentDept = null;
+  DATA.personGrid.forEach(p=>{
+    if(p.dept !== currentDept){
+      currentDept = p.dept;
+      const dr = el('tr','dept-head');
+      const dc = el('td','', currentDept);
+      dc.colSpan = DATA.dateLabels.length + 1;
+      dr.appendChild(dc);
+      tbody.appendChild(dr);
+    }
+    const tr = el('tr');
+    tr.appendChild(el('td','name-cell', p.name));
+    p.cells.forEach(status=>{
+      const td = el('td');
+      let chip;
+      if(status === 'ok'){ chip = el('span','chip ok','済'); }
+      else if(status === 'noend'){ chip = el('span','chip noend','帰'); }
+      else if(status === 'nostart'){ chip = el('span','chip nostart','行'); }
+      else { chip = el('span','chip blank'); }
+      td.appendChild(chip);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+})();
+
+// --- ご協力のお願いリスト ---
+(function drawIssues(){
+  const list = document.getElementById('issueList');
+  DATA.issues.forEach(i=>{
+    const li = el('li');
+    li.innerHTML = '<span class="who">' + i.name + '<span class="dept">' + i.dept + '</span></span>' +
+                   '<span class="cnt">' + i.count + '日</span>';
+    list.appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>
