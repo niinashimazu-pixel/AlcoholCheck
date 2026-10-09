@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>アルコールチェック 週次コンプライアンスレポート</title>
+<title>アルコールチェック 月次コンプライアンスレポート</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -67,10 +67,10 @@
     line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:1080px;margin:0 auto;padding:44px 24px 80px;}
+  .wrap{max-width:1180px;margin:0 auto;padding:44px 24px 80px;}
 
   .masthead{
-    max-width:1080px; margin:0 auto;
+    max-width:1180px; margin:0 auto;
     display:flex; justify-content:space-between; align-items:baseline;
     padding:26px 24px 18px; flex-wrap:wrap; gap:10px;
   }
@@ -92,7 +92,7 @@
     opacity:.4;
   }
   .hero-inner{
-    max-width:1080px; margin:0 auto;
+    max-width:1180px; margin:0 auto;
     display:grid; grid-template-columns:230px 1fr; gap:44px; align-items:center;
     animation:heroIn .7s cubic-bezier(.22,.61,.36,1) both;
   }
@@ -187,7 +187,7 @@
   .section-head .note{font-size:12.5px; color:var(--ink-muted);}
 
   .bars{display:flex; flex-direction:column; gap:12px;}
-  .bar-row{display:grid; grid-template-columns:150px 1fr 64px; align-items:center; gap:12px;}
+  .bar-row{display:grid; grid-template-columns:170px 1fr 92px; align-items:center; gap:12px;}
   .bar-row .name{font-size:13.5px; color:var(--ink);}
   .bar-track{background:var(--surface-2); border-radius:3px; height:20px; overflow:hidden; position:relative;}
   .bar-fill{height:100%; border-radius:3px 0 0 3px; transition:width .5s ease;}
@@ -196,22 +196,29 @@
   .dept-bars .bar-fill{background:var(--danger);}
   .err-bars .bar-fill.noend{background:var(--amber);}
   .err-bars .bar-fill.nostart{background:var(--brand-2);}
+  .err-bars .bar-fill.none{background:var(--danger);}
 
-  table.grid{border-collapse:collapse; width:100%; font-size:13px;}
-  table.grid th, table.grid td{padding:7px 8px; text-align:center; border-bottom:1px solid var(--border);}
-  table.grid th{color:var(--ink-muted); font-weight:600; font-size:12px;}
+  .grid-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--border); border-radius:6px;}
+  table.grid{border-collapse:collapse; width:100%; font-size:12px; min-width:1400px;}
+  table.grid th, table.grid td{padding:6px 5px; text-align:center; border-bottom:1px solid var(--border);}
+  table.grid th{color:var(--ink-muted); font-weight:600; font-size:11px; white-space:nowrap;}
   table.grid td.name-cell{text-align:left; font-weight:500; white-space:nowrap;}
+  table.grid th.name-cell, table.grid td.name-cell{
+    position:sticky; left:0; background:var(--surface); z-index:1; min-width:150px;
+  }
   table.grid tr.dept-head td{
     background:var(--surface-2); font-weight:700; color:var(--brand);
     padding-top:14px; padding-bottom:6px; text-align:left; border-bottom:1px solid var(--border);
+    position:sticky; left:0;
   }
   .chip{
     display:inline-flex; align-items:center; justify-content:center;
-    width:26px; height:26px; border-radius:50%; font-size:12px; font-weight:700;
+    width:22px; height:22px; border-radius:50%; font-size:11px; font-weight:700;
   }
   .chip.ok{background:var(--success-bg); color:var(--success);}
   .chip.noend{background:var(--amber-bg); color:var(--amber);}
   .chip.nostart{background:var(--amber-bg); color:var(--amber);}
+  .chip.none{background:var(--danger-bg); color:var(--danger);}
   .chip.blank{width:6px; height:6px; background:var(--chip-blank); margin:auto;}
 
   .legend{display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; font-size:12.5px; color:var(--ink-muted);}
@@ -223,12 +230,39 @@
     border-radius:6px; padding:22px 26px;
   }
   .callout p.lead{margin:0 0 14px; font-size:14px; color:var(--ink);}
-  .callout ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px;}
+  .callout ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px;
+    max-height:420px; overflow-y:auto;}
   .callout li{display:flex; justify-content:space-between; font-size:14px; border-bottom:1px dashed var(--border); padding-bottom:8px;}
   .callout li:last-child{border-bottom:none;}
   .callout .who{font-weight:600;}
   .callout .dept{color:var(--ink-muted); font-weight:400; font-size:12.5px; margin-left:8px;}
   .callout .cnt{color:var(--amber); font-weight:700; white-space:nowrap;}
+
+  .notes{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:800px){ .notes{grid-template-columns:1fr;} }
+  .note-card{background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:20px 22px;}
+  .note-card h4{
+    font-family:"Zen Kaku Gothic New", sans-serif; font-size:14.5px; margin:0 0 12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .note-card.fact h4{color:var(--success);}
+  .note-card.hypo h4{color:var(--amber);}
+  .note-card h4::before{content:""; width:8px; height:8px; border-radius:50%; background:currentColor;}
+  .note-card ul{margin:0 0 12px; padding-left:18px; font-size:13.5px; color:var(--ink);}
+  .note-card ul:last-child{margin-bottom:0;}
+  .note-card li{margin-bottom:10px;}
+  .note-card li:last-child{margin-bottom:0;}
+  .note-card p{margin:0 0 12px; font-size:13.5px; color:var(--ink); line-height:1.7;}
+  .note-card p:last-child{margin-bottom:0;}
+  .note-card li b, .note-card p b{color:var(--ink); font-weight:700;}
+  .reservation-note{
+    margin-top:18px; background:var(--surface-2); border-radius:6px; padding:16px 20px; font-size:13px; color:var(--ink-muted);
+  }
+  .reservation-note b{color:var(--ink); font-weight:700;}
+  .reservation-note .pillrow{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+  .reservation-note .pill{
+    background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:3px 12px; font-size:12px;
+  }
 
   footer{
     margin-top:56px; padding-top:20px; border-top:1px solid var(--border);
@@ -247,7 +281,7 @@
   <div class="hero-inner">
     <svg id="gauge" viewBox="0 0 200 200" width="200" height="200"></svg>
     <div class="hero-text">
-      <h1>アルコールチェック 週次コンプライアンスレポート</h1>
+      <h1>アルコールチェック 月次コンプライアンスレポート</h1>
       <h2 id="heroHeadline"></h2>
       <p id="heroSub"></p>
       <div class="trend" id="trendBadge"></div>
@@ -258,7 +292,7 @@
 <div class="wrap">
 
   <div class="kpi-strip">
-    <div class="kpi"><div class="num" id="kpiTarget"></div><div class="lbl">対象件数(人日)</div></div>
+    <div class="kpi"><div class="num" id="kpiTarget"></div><div class="lbl">対象件数</div></div>
     <div class="kpi"><div class="num" id="kpiOk"></div><div class="lbl">正常件数</div></div>
     <div class="kpi err"><div class="num" id="kpiErr"></div><div class="lbl">エラー件数</div></div>
     <div class="kpi err"><div class="num" id="kpiErrRate"></div><div class="lbl">エラー率</div></div>
@@ -266,8 +300,8 @@
 
   <section>
     <div class="section-head">
-      <h3>チェック忘れの内訳</h3>
-      <span class="note">開始・終了どちらの検知が漏れたか</span>
+      <h3>エラーの内訳</h3>
+      <span class="note">どこで躓いているか（件数ベース）</span>
     </div>
     <div class="bars err-bars" id="errBars"></div>
   </section>
@@ -275,31 +309,63 @@
   <section>
     <div class="section-head">
       <h3>事業部別の状況</h3>
-      <span class="note">エラー率が高い事業部順</span>
+      <span class="note">エラーが発生した人数の割合が高い事業部順（実績のあった人のみ集計）</span>
     </div>
     <div class="bars dept-bars" id="deptBars"></div>
   </section>
 
   <section>
     <div class="section-head">
-      <h3>氏名別 実施状況</h3>
-      <span class="note">事業部ごとにグルーピング</span>
+      <h3>氏名別 実施状況（9月 全日）</h3>
+      <span class="note">事業部ごとにグルーピング・横スクロールで全日表示</span>
     </div>
-    <table class="grid" id="personGrid"></table>
+    <div class="grid-scroll"><table class="grid" id="personGrid"></table></div>
     <div class="legend">
       <span><span class="dot" style="background:var(--success-bg); border:2px solid var(--success);"></span>実施済</span>
       <span><span class="dot" style="background:var(--amber-bg); border:2px solid var(--amber);"></span>開始または終了のいずれか未記録</span>
+      <span><span class="dot" style="background:var(--danger-bg); border:2px solid var(--danger);"></span>完全未検知（予約等の実績はあるが検知記録なし）</span>
       <span><span class="dot" style="background:var(--chip-blank); width:8px; height:8px;"></span>当日の運行記録なし</span>
     </div>
   </section>
 
   <section>
     <div class="section-head">
+      <h3>管理上の補足・今後の確認事項</h3>
+      <span class="note">今回の結果を踏まえ、確認できている状況と今後確認していきたい点を整理</span>
+    </div>
+    <div class="notes">
+      <div class="note-card fact">
+        <h4>① データから確認できる状況</h4>
+        <ul>
+          <li>完全未検知（計45件）については、尾崎陽祐さん（17件／月間で4回連続の未検知が3回、3回連続が1回、2回連続が1回）、鎌田優輝さん、山下まいさん、土屋昇太さんの4名に比較的多く見られました。</li>
+          <li>林康介さんはエラーが7件（帰着時6件・出発前1件）あり、検知器での車両選択ができていないケースも確認されています。</li>
+          <li>事前予約のない車両利用が、全社で月間74回記録されています。</li>
+          <li>月間実施率は70.5%（エラー率29.5%）となり、8月の40%台から改善が見られています。</li>
+        </ul>
+      </div>
+      <div class="note-card hypo">
+        <h4>② 今後確認していきたいこと</h4>
+        <p>未検知や操作エラーについては、単純な実施忘れだけでなく、運用方法や操作手順の認識に違いがある可能性も考えられます。例えば、以下のような点について確認が必要と考えています。</p>
+        <ul>
+          <li><b>未検知が続いているケース：</b>検知器の持参状況や操作方法の理解、車両予約後に利用しなかった場合のキャンセル対応、レンタカー利用時の検知ルールの認識など</li>
+          <li><b>操作エラーや予約のない車両利用：</b>車両選択の操作漏れや、日常的に同じ車両を使用する際の予約手順の認識など</li>
+        </ul>
+        <p>現時点では、いずれも原因を特定できているわけではありません。今後、必要に応じてご本人にも状況を確認しながら、操作方法の再案内や運用ルールの周知など、より確実に実施できる環境づくりにつなげていきたいと考えています。8月と比較して実施率は改善しているため、引き続き、できている部分も大切にしながら、全体の実施率向上を目指していきます。</p>
+      </div>
+    </div>
+    <div class="reservation-note">
+      <b>参考：Googleカレンダー予約なし利用（上記71件のエラーとは別集計・運用上の確認事項）</b> — 月間計74回
+      <div class="pillrow" id="noResPills"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
       <h3>ご協力のお願い</h3>
-      <span class="note">今週、未記録が1回以上あった方</span>
+      <span class="note">9月、未記録・不備が1回以上あった方（計19名）</span>
     </div>
     <div class="callout">
-      <p class="lead">乗車前・降車後、両方の検知にご協力をお願いします。</p>
+      <p class="lead">乗車前・降車後、両方の検知にご協力をお願いします。アルコールチェックは道路交通法等に基づく法令遵守事項のため、評価や推測を避け、事実確認に基づき個別にサポートしてまいります。</p>
       <ul id="issueList"></ul>
     </div>
   </section>
@@ -312,7 +378,7 @@
 </div>
 
 <script>
-const DATA = {"period": "2026/09/07 〜 2026/09/12", "previous": {"label": "8月(月次)", "rate": 40.6}, "dateLabels": ["9/7(月)", "9/8(火)", "9/9(水)", "9/10(木)", "9/11(金)", "9/12(土)"], "kpi": {"target": 57, "ok": 47, "error": 10, "rate": 82.5, "errRate": 17.5}, "errorBreakdown": {"noend": 7, "nostart": 3}, "deptSummary": [{"所属": "ケミカル販売事業部", "managed": 2, "errorCount": 1, "perfect": 1, "errRate": 50.0}, {"所属": "統括SCM本部", "managed": 4, "errorCount": 2, "perfect": 2, "errRate": 50.0}, {"所属": "リビルト販売事業部", "managed": 5, "errorCount": 2, "perfect": 3, "errRate": 40.0}, {"所属": "リサイクル事業部", "managed": 3, "errorCount": 1, "perfect": 2, "errRate": 33.3}, {"所属": "統合グロース戦略室", "managed": 4, "errorCount": 1, "perfect": 3, "errRate": 25.0}], "personGrid": [{"name": "山下 まい", "dept": "ケミカル販売事業部", "cells": ["", "", "", "noend", "ok", ""]}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "cells": ["", "ok", "ok", "ok", "ok", "ok"]}, {"name": "福浦 康太", "dept": "リサイクル事業部", "cells": ["", "nostart", "ok", "ok", "ok", ""]}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "cells": ["", "", "", "ok", "ok", ""]}, {"name": "青江 優志", "dept": "リサイクル事業部", "cells": ["ok", "", "ok", "ok", "ok", ""]}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "林 康介", "dept": "リビルト販売事業部", "cells": ["", "nostart", "noend", "", "noend", ""]}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "noend", "ok", ""]}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "津川 千優", "dept": "リビルト販売事業部", "cells": ["", "", "ok", "", "ok", ""]}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", ""]}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "ok", "ok", ""]}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "noend", "noend", ""]}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", ""]}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "cells": ["", "", "", "", "noend", ""]}, {"name": "PARK  BYUNGGYU", "dept": "統括SCM本部", "cells": ["ok", "ok", "", "ok", "ok", "ok"]}, {"name": "宇野 耕作", "dept": "統括SCM本部", "cells": ["ok", "", "nostart", "ok", "", ""]}, {"name": "流田 雄介", "dept": "統括SCM本部", "cells": ["ok", "ok", "ok", "", "ok", ""]}], "issues": [{"name": "林 康介", "dept": "リビルト販売事業部", "count": 3}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "count": 2}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "count": 1}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "count": 1}, {"name": "宇野 耕作", "dept": "統括SCM本部", "count": 1}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "count": 1}, {"name": "福浦 康太", "dept": "リサイクル事業部", "count": 1}]};
+const DATA = {"period": "2026/09/01 〜 2026/09/30", "previous": {"label": "8月(月次)", "rate": 40.6}, "dateLabels": ["9/1(火)", "9/2(水)", "9/3(木)", "9/4(金)", "9/5(土)", "9/7(月)", "9/8(火)", "9/9(水)", "9/10(木)", "9/11(金)", "9/12(土)", "9/14(月)", "9/15(火)", "9/16(水)", "9/17(木)", "9/18(金)", "9/19(土)", "9/24(木)", "9/25(金)", "9/26(土)", "9/28(月)", "9/29(火)", "9/30(水)"], "kpi": {"target": 241, "ok": 170, "error": 71, "rate": 70.5, "errRate": 29.5}, "errorBreakdown": {"none": 45, "noend": 23, "nostart": 3}, "deptSummary": [{"所属": "リサイクル事業部", "managed": 4, "errorCount": 4, "perfect": 0, "errRate": 100.0}, {"所属": "統合グロース戦略室", "managed": 4, "errorCount": 4, "perfect": 0, "errRate": 100.0}, {"所属": "統括SCM本部", "managed": 4, "errorCount": 4, "perfect": 0, "errRate": 100.0}, {"所属": "ケミカル販売事業部", "managed": 2, "errorCount": 2, "perfect": 0, "errRate": 100.0}, {"所属": "リビルト販売事業部", "managed": 6, "errorCount": 5, "perfect": 1, "errRate": 83.3}], "personGrid": [{"name": "浅野 翔", "dept": "リサイクル事業部", "cells": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "福浦 康太", "dept": "リサイクル事業部", "cells": ["", "", "", "", "", "", "nostart", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "ok", "", "ok", "ok", "", "ok", "ok", ""]}, {"name": "青江 優志", "dept": "リサイクル事業部", "cells": ["", "ok", "ok", "", "", "ok", "none", "ok", "ok", "ok", "", "none", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "", "noend", "ok", "ok"]}, {"name": "藤倉 楓人", "dept": "リサイクル事業部", "cells": ["", "", "ok", "", "", "", "", "", "", "", "", "", "", "ok", "", "", "", "", "none", "", "", "", "none"]}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "cells": ["", "noend", "", "", "", "", "none", "none", "ok", "ok", "", "", "noend", "noend", "ok", "noend", "", "ok", "", "", "none", "none", "none"]}, {"name": "有吉 哲哉", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "", "ok", "ok", "noend", "ok", "", "", "", "", "", "", "", "none", "none", "", "", "ok", ""]}, {"name": "尾崎 陽祐", "dept": "リビルト販売事業部", "cells": ["none", "none", "none", "none", "", "", "none", "none", "none", "none", "", "", "none", "none", "none", "none", "", "none", "none", "", "none", "none", "none"]}, {"name": "津川 千優", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "", "", "", "ok", "", "ok", "", "", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "", "", "", ""]}, {"name": "林 康介", "dept": "リビルト販売事業部", "cells": ["", "", "noend", "ok", "", "", "nostart", "noend", "", "noend", "", "", "noend", "noend", "ok", "ok", "", "ok", "ok", "", "", "", "noend"]}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "noend", "", "ok", "", "", "ok", "ok", "ok"]}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "ok", "", "ok", "ok", "", "", "none", "ok"]}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "cells": ["", "ok", "ok", "ok", "", "none", "ok", "ok", "ok", "ok", "ok", "", "ok", "none", "ok", "ok", "", "ok", "ok", "ok", "ok", "ok", "ok"]}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "cells": ["", "ok", "ok", "none", "none", "", "", "", "noend", "ok", "", "", "ok", "ok", "ok", "none", "", "none", "", "", "none", "none", ""]}, {"name": "徐 玲", "dept": "ケミカル販売事業部", "cells": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", "", "ok", "ok", "ok", "ok", "", "ok", "ok", "", "ok", "", "", "", "noend", "", "ok", "ok", ""]}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "cells": ["", "none", "none", "ok", "", "none", "", "ok", "", "", "", "", "ok", "ok", "", "noend", "", "", "", "", "", "none", ""]}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "cells": ["", "", "none", "", "", "", "", "ok", "", "", "", "", "", "", "ok", "ok", "none", "ok", "ok", "", "", "", ""]}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "ok", "", "", "ok", "ok", "noend", "noend", "", "", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "noend", "noend", "ok", "none"]}, {"name": "三村 惟人", "dept": "統合グロース戦略室", "cells": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "流田 雄介", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "ok", "ok", "ok", "", "ok", "", "", "ok", "ok", "", "ok", "", "noend", "", "", "ok", "", ""]}, {"name": "PARK BYUNGGYU", "dept": "統括SCM本部", "cells": ["noend", "ok", "ok", "ok", "ok", "ok", "ok", "", "ok", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "", "ok", "ok", "ok", "nostart", "ok"]}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "", "", "", "", "noend", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "宇野 耕作", "dept": "統括SCM本部", "cells": ["", "", "", "ok", "", "ok", "none", "ok", "ok", "", "", "", "", "ok", "ok", "ok", "", "", "ok", "", "ok", "", ""]}], "issues": [{"name": "尾崎 陽祐", "dept": "リビルト販売事業部", "count": 17}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "count": 9}, {"name": "林 康介", "dept": "リビルト販売事業部", "count": 7}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "count": 7}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "count": 5}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "count": 5}, {"name": "青江 優志", "dept": "リサイクル事業部", "count": 3}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "count": 3}, {"name": "藤倉 楓人", "dept": "リサイクル事業部", "count": 2}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "count": 2}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "count": 2}, {"name": "PARK BYUNGGYU", "dept": "統括SCM本部", "count": 2}, {"name": "福浦 康太", "dept": "リサイクル事業部", "count": 1}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "count": 1}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "count": 1}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "count": 1}, {"name": "流田 雄介", "dept": "統括SCM本部", "count": 1}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "count": 1}, {"name": "宇野 耕作", "dept": "統括SCM本部", "count": 1}], "noReservation": {"total": 74, "detail": [{"name": "PARK氏", "count": 19}, {"name": "林氏", "count": 19}, {"name": "青江氏", "count": 9}, {"name": "流田氏", "count": 7}, {"name": "津川氏", "count": 6}, {"name": "鎌田氏", "count": 4}, {"name": "福浦氏", "count": 4}]}};
 
 function el(tag, cls, html){
   const e = document.createElement(tag);
@@ -360,10 +426,10 @@ animateNumber(document.getElementById('kpiErr'), DATA.kpi.error, {suffix:'件', 
 animateNumber(document.getElementById('kpiErrRate'), DATA.kpi.errRate, {suffix:'%', decimals:1, duration:1200});
 
 document.getElementById('heroHeadline').textContent =
-  '今週の実施率は ' + DATA.kpi.rate + '% でした';
+  '9月の実施率は ' + DATA.kpi.rate + '% でした';
 document.getElementById('heroSub').textContent =
-  '対象57件(人日)のうち、開始・終了とも記録できたのは ' + DATA.kpi.ok + ' 件。' +
-  '残り ' + DATA.kpi.error + ' 件は、乗車前または降車後のいずれかの検知が未記録でした。';
+  '対象' + DATA.kpi.target + '件のうち、開始・終了とも記録できたのは ' + DATA.kpi.ok + ' 件。' +
+  '残り ' + DATA.kpi.error + ' 件は、完全未検知または乗車前・降車後いずれかの検知未記録でした。';
 
 // --- 前回比トレンド ---
 (function drawTrend(){
@@ -385,7 +451,7 @@ document.getElementById('heroSub').textContent =
   nums.innerHTML =
     '<span class="prev">' + DATA.previous.label + ' ' + prevRate + '%</span>' +
     '<span class="arrow">→</span>' +
-    '<span class="now">' + DATA.period.split(' ')[0].slice(5) + '〜 ' + nowRate + '%</span>';
+    '<span class="now">9月(月次) ' + nowRate + '%</span>';
   row.appendChild(nums);
 
   const track = el('div','trend-track');
@@ -403,7 +469,7 @@ document.getElementById('heroSub').textContent =
 
   wrap.appendChild(row);
   wrap.appendChild(el('div','trend-caption',
-    '※「' + DATA.previous.label + '」は予約データを含む完全な突合値、今回は検知ログのみの暫定値のため、単純比較の参考値です。'));
+    '※「' + DATA.previous.label + '」との比較は参考値です。'));
 })();
 
 // --- ゲージ描画 ---
@@ -466,14 +532,16 @@ document.getElementById('heroSub').textContent =
   svg.appendChild(sub);
 })();
 
-// --- チェック忘れ内訳 ---
+// --- エラー内訳 ---
 (function drawErrBars(){
   const wrap = document.getElementById('errBars');
   const rows = [
-    {label:'帰着後チェック忘れ', desc:'乗車前のみ検知', count:DATA.errorBreakdown.noend, cls:'noend'},
-    {label:'出発前チェック忘れ', desc:'乗車後のみ検知', count:DATA.errorBreakdown.nostart, cls:'nostart'}
+    {label:'【最多】完全未検知', desc:'予約等の実績があるが検知記録なし', count:DATA.errorBreakdown.none, cls:'none'},
+    {label:'帰着後チェック忘れ', desc:'乗車前のみ検知、乗車後の検知漏れ', count:DATA.errorBreakdown.noend, cls:'noend'},
+    {label:'出発前チェック忘れ', desc:'乗車後のみ検知、乗車前の検知漏れ', count:DATA.errorBreakdown.nostart, cls:'nostart'}
   ];
   const max = Math.max.apply(null, rows.map(r=>r.count)) || 1;
+  const total = rows.reduce((a,r)=>a+r.count,0) || 1;
   rows.forEach(r=>{
     const row = el('div','bar-row');
     row.appendChild(el('div','name', r.label + '<br><span style="color:var(--ink-muted);font-size:11.5px;">' + r.desc + '</span>'));
@@ -481,7 +549,7 @@ document.getElementById('heroSub').textContent =
     const fill = el('div','bar-fill ' + r.cls);
     track.appendChild(fill);
     row.appendChild(track);
-    row.appendChild(el('div','val', r.count + '件'));
+    row.appendChild(el('div','val', r.count + '件（' + (r.count/total*100).toFixed(1) + '%）'));
     wrap.appendChild(row);
     growBar(fill, r.count/max*100);
   });
@@ -509,7 +577,7 @@ document.getElementById('heroSub').textContent =
   const table = document.getElementById('personGrid');
   const thead = el('thead');
   const headRow = el('tr');
-  headRow.appendChild(el('th','', '氏名'));
+  headRow.appendChild(el('th','name-cell', '氏名'));
   DATA.dateLabels.forEach(d=> headRow.appendChild(el('th','', d)));
   thead.appendChild(headRow);
   table.appendChild(thead);
@@ -533,6 +601,7 @@ document.getElementById('heroSub').textContent =
       if(status === 'ok'){ chip = el('span','chip ok','済'); }
       else if(status === 'noend'){ chip = el('span','chip noend','帰'); }
       else if(status === 'nostart'){ chip = el('span','chip nostart','行'); }
+      else if(status === 'none'){ chip = el('span','chip none','未'); }
       else { chip = el('span','chip blank'); }
       td.appendChild(chip);
       tr.appendChild(td);
@@ -542,13 +611,22 @@ document.getElementById('heroSub').textContent =
   table.appendChild(tbody);
 })();
 
+// --- 予約なし利用ピル ---
+(function drawNoRes(){
+  const wrap = document.getElementById('noResPills');
+  if(!DATA.noReservation) return;
+  DATA.noReservation.detail.forEach(d=>{
+    wrap.appendChild(el('span','pill', d.name + ' ' + d.count + '回'));
+  });
+})();
+
 // --- ご協力のお願いリスト ---
 (function drawIssues(){
   const list = document.getElementById('issueList');
   DATA.issues.forEach(i=>{
     const li = el('li');
     li.innerHTML = '<span class="who">' + i.name + '<span class="dept">' + i.dept + '</span></span>' +
-                   '<span class="cnt">' + i.count + '日</span>';
+                   '<span class="cnt">' + i.count + '件</span>';
     list.appendChild(li);
   });
 })();
