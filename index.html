@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>アルコールチェック 月次コンプライアンスレポート</title>
+<title>アルコールチェック コンプライアンスレポート</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -281,7 +281,7 @@
   <div class="hero-inner">
     <svg id="gauge" viewBox="0 0 200 200" width="200" height="200"></svg>
     <div class="hero-text">
-      <h1>アルコールチェック 月次コンプライアンスレポート</h1>
+      <h1>アルコールチェック コンプライアンスレポート</h1>
       <h2 id="heroHeadline"></h2>
       <p id="heroSub"></p>
       <div class="trend" id="trendBadge"></div>
@@ -316,7 +316,7 @@
 
   <section>
     <div class="section-head">
-      <h3>氏名別 実施状況（9月 全日）</h3>
+      <h3>氏名別 実施状況 <span id="gridPeriod" style="font-weight:400;font-size:14px;color:var(--ink-muted);"></span></h3>
       <span class="note">事業部ごとにグルーピング・横スクロールで全日表示</span>
     </div>
     <div class="grid-scroll"><table class="grid" id="personGrid"></table></div>
@@ -337,24 +337,24 @@
       <div class="note-card fact">
         <h4>① データから確認できる状況</h4>
         <ul>
-          <li>完全未検知（計45件）については、尾崎陽祐さん（17件／月間で4回連続の未検知が3回、3回連続が1回、2回連続が1回）、鎌田優輝さん、山下まいさん、土屋昇太さんの4名に比較的多く見られました。</li>
-          <li>林康介さんはエラーが7件（帰着時6件・出発前1件）あり、検知器での車両選択ができていないケースも確認されています。</li>
-          <li>事前予約のない車両利用が、全社で月間74回記録されています。</li>
-          <li>月間実施率は70.5%（エラー率29.5%）となり、8月の40%台から改善が見られています。</li>
+          <li>完全未検知（計18件）は、尾﨑陽祐さん（4件）に比較的多く見られたほか、鎌田優輝さん・林康介さんにも各2件記録されています。</li>
+          <li>林康介さんはエラーが5件（帰着時3件・完全未検知2件）あり、アルキラーアプリでの車両選択ができていない状況が確認されています（ご本人へ使い方の確認を依頼済み）。</li>
+          <li>事前予約のない車両利用が、期間中に23回記録されています（PARK BYUNGGYUさん7回、岡本虎太朗さん・林康介さん各3回など）。</li>
+          <li>10/1〜10/9の実施率は55.1%（エラー率44.9%）で、9月の月次実施率70.5%と比べると低い水準となっています。</li>
         </ul>
       </div>
       <div class="note-card hypo">
         <h4>② 今後確認していきたいこと</h4>
         <p>未検知や操作エラーについては、単純な実施忘れだけでなく、運用方法や操作手順の認識に違いがある可能性も考えられます。例えば、以下のような点について確認が必要と考えています。</p>
         <ul>
-          <li><b>未検知が続いているケース：</b>検知器の持参状況や操作方法の理解、車両予約後に利用しなかった場合のキャンセル対応、レンタカー利用時の検知ルールの認識など</li>
-          <li><b>操作エラーや予約のない車両利用：</b>車両選択の操作漏れや、日常的に同じ車両を使用する際の予約手順の認識など</li>
+          <li><b>未検知が続いているケース：</b>検知器の持参状況や操作方法の理解、レンタカー利用時の検知ルールの認識など（尾﨑陽祐さんなど）</li>
+          <li><b>操作エラーや予約のない車両利用：</b>車両選択の操作漏れ（林康介さんはアプリでの車両選択ができていないことが確認されています）、日常的に同じ車両を使用する際の予約手順の認識など</li>
         </ul>
-        <p>現時点では、いずれも原因を特定できているわけではありません。今後、必要に応じてご本人にも状況を確認しながら、操作方法の再案内や運用ルールの周知など、より確実に実施できる環境づくりにつなげていきたいと考えています。8月と比較して実施率は改善しているため、引き続き、できている部分も大切にしながら、全体の実施率向上を目指していきます。</p>
+        <p>現時点では、いずれも原因を特定できているわけではありません。今後、必要に応じてご本人にも状況を確認しながら、操作方法の再案内や運用ルールの周知など、より確実に実施できる環境づくりにつなげていきたいと考えています。直近の実施率は9月の月次実施率を下回っているため、要因の整理と改善に向けた対応を進めていきます。</p>
       </div>
     </div>
     <div class="reservation-note">
-      <b>参考：Googleカレンダー予約なし利用（上記71件のエラーとは別集計・運用上の確認事項）</b> — 月間計74回
+      <b>参考：Googleカレンダー予約なし利用（上記<span id="resErrTotal"></span>件のエラーとは別集計・運用上の確認事項）</b> — <span id="resPeriodTotal"></span>
       <div class="pillrow" id="noResPills"></div>
     </div>
   </section>
@@ -362,7 +362,7 @@
   <section>
     <div class="section-head">
       <h3>ご協力のお願い</h3>
-      <span class="note">9月、未記録・不備が1回以上あった方（計19名）</span>
+      <span class="note" id="issueNote"></span>
     </div>
     <div class="callout">
       <p class="lead">乗車前・降車後、両方の検知にご協力をお願いします。アルコールチェックは皆さんの安全を守るための取り組みです。</p>
@@ -378,7 +378,7 @@
 </div>
 
 <script>
-const DATA = {"period": "2026/09/01 〜 2026/09/30", "previous": {"label": "8月(月次)", "rate": 40.6}, "dateLabels": ["9/1(火)", "9/2(水)", "9/3(木)", "9/4(金)", "9/5(土)", "9/7(月)", "9/8(火)", "9/9(水)", "9/10(木)", "9/11(金)", "9/12(土)", "9/14(月)", "9/15(火)", "9/16(水)", "9/17(木)", "9/18(金)", "9/19(土)", "9/24(木)", "9/25(金)", "9/26(土)", "9/28(月)", "9/29(火)", "9/30(水)"], "kpi": {"target": 241, "ok": 170, "error": 71, "rate": 70.5, "errRate": 29.5}, "errorBreakdown": {"none": 45, "noend": 23, "nostart": 3}, "deptSummary": [{"所属": "リサイクル事業部", "managed": 4, "errorCount": 4, "perfect": 0, "errRate": 100.0}, {"所属": "統合グロース戦略室", "managed": 4, "errorCount": 4, "perfect": 0, "errRate": 100.0}, {"所属": "統括SCM本部", "managed": 4, "errorCount": 4, "perfect": 0, "errRate": 100.0}, {"所属": "ケミカル販売事業部", "managed": 2, "errorCount": 2, "perfect": 0, "errRate": 100.0}, {"所属": "リビルト販売事業部", "managed": 6, "errorCount": 5, "perfect": 1, "errRate": 83.3}], "personGrid": [{"name": "浅野 翔", "dept": "リサイクル事業部", "cells": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "福浦 康太", "dept": "リサイクル事業部", "cells": ["", "", "", "", "", "", "nostart", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "ok", "", "ok", "ok", "", "ok", "ok", ""]}, {"name": "青江 優志", "dept": "リサイクル事業部", "cells": ["", "ok", "ok", "", "", "ok", "none", "ok", "ok", "ok", "", "none", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "", "noend", "ok", "ok"]}, {"name": "藤倉 楓人", "dept": "リサイクル事業部", "cells": ["", "", "ok", "", "", "", "", "", "", "", "", "", "", "ok", "", "", "", "", "none", "", "", "", "none"]}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "cells": ["", "noend", "", "", "", "", "none", "none", "ok", "ok", "", "", "noend", "noend", "ok", "noend", "", "ok", "", "", "none", "none", "none"]}, {"name": "有吉 哲哉", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "", "ok", "ok", "noend", "ok", "", "", "", "", "", "", "", "none", "none", "", "", "ok", ""]}, {"name": "尾崎 陽祐", "dept": "リビルト販売事業部", "cells": ["none", "none", "none", "none", "", "", "none", "none", "none", "none", "", "", "none", "none", "none", "none", "", "none", "none", "", "none", "none", "none"]}, {"name": "津川 千優", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "", "", "", "ok", "", "ok", "", "", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "", "", "", ""]}, {"name": "林 康介", "dept": "リビルト販売事業部", "cells": ["", "", "noend", "ok", "", "", "nostart", "noend", "", "noend", "", "", "noend", "noend", "ok", "ok", "", "ok", "ok", "", "", "", "noend"]}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "noend", "", "ok", "", "", "ok", "ok", "ok"]}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "cells": ["", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "ok", "", "ok", "ok", "", "", "none", "ok"]}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "cells": ["", "ok", "ok", "ok", "", "none", "ok", "ok", "ok", "ok", "ok", "", "ok", "none", "ok", "ok", "", "ok", "ok", "ok", "ok", "ok", "ok"]}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "cells": ["", "ok", "ok", "none", "none", "", "", "", "noend", "ok", "", "", "ok", "ok", "ok", "none", "", "none", "", "", "none", "none", ""]}, {"name": "徐 玲", "dept": "ケミカル販売事業部", "cells": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "cells": ["", "", "ok", "", "", "", "ok", "ok", "ok", "ok", "", "ok", "ok", "", "ok", "", "", "", "noend", "", "ok", "ok", ""]}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "cells": ["", "none", "none", "ok", "", "none", "", "ok", "", "", "", "", "ok", "ok", "", "noend", "", "", "", "", "", "none", ""]}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "cells": ["", "", "none", "", "", "", "", "ok", "", "", "", "", "", "", "ok", "ok", "none", "ok", "ok", "", "", "", ""]}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "cells": ["", "ok", "ok", "ok", "", "", "ok", "ok", "noend", "noend", "", "", "ok", "ok", "ok", "ok", "ok", "ok", "ok", "noend", "noend", "ok", "none"]}, {"name": "三村 惟人", "dept": "統合グロース戦略室", "cells": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "流田 雄介", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "ok", "ok", "ok", "", "ok", "", "", "ok", "ok", "", "ok", "", "noend", "", "", "ok", "", ""]}, {"name": "PARK BYUNGGYU", "dept": "統括SCM本部", "cells": ["noend", "ok", "ok", "ok", "ok", "ok", "ok", "", "ok", "ok", "ok", "ok", "", "", "ok", "ok", "ok", "", "ok", "ok", "ok", "nostart", "ok"]}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "", "", "", "", "noend", "", "", "", "", "", "", "", "", "", "", "", "", ""]}, {"name": "宇野 耕作", "dept": "統括SCM本部", "cells": ["", "", "", "ok", "", "ok", "none", "ok", "ok", "", "", "", "", "ok", "ok", "ok", "", "", "ok", "", "ok", "", ""]}], "issues": [{"name": "尾崎 陽祐", "dept": "リビルト販売事業部", "count": 17}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "count": 9}, {"name": "林 康介", "dept": "リビルト販売事業部", "count": 7}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "count": 7}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "count": 5}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "count": 5}, {"name": "青江 優志", "dept": "リサイクル事業部", "count": 3}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "count": 3}, {"name": "藤倉 楓人", "dept": "リサイクル事業部", "count": 2}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "count": 2}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "count": 2}, {"name": "PARK BYUNGGYU", "dept": "統括SCM本部", "count": 2}, {"name": "福浦 康太", "dept": "リサイクル事業部", "count": 1}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "count": 1}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "count": 1}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "count": 1}, {"name": "流田 雄介", "dept": "統括SCM本部", "count": 1}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "count": 1}, {"name": "宇野 耕作", "dept": "統括SCM本部", "count": 1}], "noReservation": {"total": 74, "detail": [{"name": "PARK氏", "count": 19}, {"name": "林氏", "count": 19}, {"name": "青江氏", "count": 9}, {"name": "流田氏", "count": 7}, {"name": "津川氏", "count": 6}, {"name": "鎌田氏", "count": 4}, {"name": "福浦氏", "count": 4}]}};
+const DATA = {"period": "2026/10/01 〜 2026/10/09", "periodShort": "10/1〜10/9", "nowLabel": "10月(1〜9日)", "previous": {"label": "9月(月次)", "rate": 70.5}, "dateLabels": ["10/1(木)", "10/2(金)", "10/3(土)", "10/4(日)", "10/5(月)", "10/6(火)", "10/7(水)", "10/8(木)", "10/9(金)"], "kpi": {"target": 69, "ok": 38, "error": 31, "rate": 55.1, "errRate": 44.9}, "errorBreakdown": {"none": 18, "noend": 12, "nostart": 1}, "deptSummary": [{"所属": "統合グロース戦略室", "managed": 4, "errorCount": 4, "perfect": 0, "errRate": 100.0}, {"所属": "ケミカル販売事業部", "managed": 2, "errorCount": 2, "perfect": 0, "errRate": 100.0}, {"所属": "DX戦略室", "managed": 2, "errorCount": 2, "perfect": 0, "errRate": 100.0}, {"所属": "役員", "managed": 1, "errorCount": 1, "perfect": 0, "errRate": 100.0}, {"所属": "戦略人事室", "managed": 1, "errorCount": 1, "perfect": 0, "errRate": 100.0}, {"所属": "リサイクル事業部", "managed": 4, "errorCount": 3, "perfect": 1, "errRate": 75.0}, {"所属": "リビルト販売事業部", "managed": 6, "errorCount": 4, "perfect": 2, "errRate": 66.7}, {"所属": "統括SCM本部", "managed": 3, "errorCount": 1, "perfect": 2, "errRate": 33.3}], "personGrid": [{"name": "浅野 翔", "dept": "リサイクル事業部", "cells": ["", "", "", "", "", "", "", "", ""]}, {"name": "福浦 康太", "dept": "リサイクル事業部", "cells": ["", "", "", "", "ok", "", "", "ok", "ok"]}, {"name": "青江 優志", "dept": "リサイクル事業部", "cells": ["", "none", "", "", "", "", "", "ok", "ok"]}, {"name": "藤倉 楓人", "dept": "リサイクル事業部", "cells": ["", "", "", "", "noend", "", "", "", ""]}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "cells": ["", "", "", "", "noend", "none", "noend", "", "none"]}, {"name": "有吉 哲哉", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "", "", "", ""]}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "noend", "", "", ""]}, {"name": "尾﨑 陽祐", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "none", "none", "none", "none"]}, {"name": "津川 千優", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "", "", "ok", ""]}, {"name": "林 康介", "dept": "リビルト販売事業部", "cells": ["noend", "ok", "", "", "none", "noend", "", "noend", "none"]}, {"name": "椋 優輝", "dept": "リビルト販売事業部", "cells": ["", "ok", "", "", "", "ok", "ok", "", "ok"]}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "cells": ["", "", "", "", "", "ok", "ok", "ok", "noend"]}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "cells": ["", "ok", "", "", "", "", "", "ok", "noend"]}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "cells": ["", "", "", "", "", "ok", "none", "", "ok"]}, {"name": "徐 玲", "dept": "ケミカル販売事業部", "cells": ["", "", "", "", "", "", "", "", ""]}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "cells": ["", "none", "", "", "", "ok", "ok", "ok", ""]}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "cells": ["", "none", "", "", "none", "none", "", "", ""]}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "cells": ["", "", "", "", "ok", "noend", "ok", "noend", "ok"]}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "cells": ["", "", "", "", "ok", "none", "ok", "ok", "ok"]}, {"name": "三村 惟人", "dept": "統合グロース戦略室", "cells": ["", "", "", "", "", "", "", "", ""]}, {"name": "流田 雄介", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "", "", "", ""]}, {"name": "PARK BYUNGGYU", "dept": "統括SCM本部", "cells": ["ok", "nostart", "", "", "ok", "ok", "", "ok", "ok"]}, {"name": "JAYASIRIGE DON CHATHUKA SANKALPA", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "", "", "ok", ""]}, {"name": "宇野 耕作", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "", "", "ok", ""]}, {"name": "田中 大貴", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "", "", "", ""]}, {"name": "山田 彩加", "dept": "統括SCM本部", "cells": ["", "", "", "", "", "", "", "", ""]}, {"name": "都志 祐紀也", "dept": "DX戦略室", "cells": ["", "none", "", "", "", "", "", "", ""]}, {"name": "李 想", "dept": "DX戦略室", "cells": ["", "", "", "", "", "", "", "", ""]}, {"name": "近江 渚", "dept": "DX戦略室", "cells": ["", "none", "", "", "", "", "", "", ""]}, {"name": "長田 雅志", "dept": "役員", "cells": ["", "", "", "", "", "", "none", "", ""]}, {"name": "石井 美咲", "dept": "戦略人事室", "cells": ["", "noend", "", "", "", "", "", "", ""]}], "issues": [{"name": "林 康介", "dept": "リビルト販売事業部", "count": 5}, {"name": "尾﨑 陽祐", "dept": "リビルト販売事業部", "count": 4}, {"name": "鎌田 優輝", "dept": "リサイクル事業部", "count": 4}, {"name": "土屋 昇太", "dept": "統合グロース戦略室", "count": 3}, {"name": "清水 賢太郎", "dept": "統合グロース戦略室", "count": 2}, {"name": "寺尾 耀", "dept": "統合グロース戦略室", "count": 1}, {"name": "山下 まい", "dept": "ケミカル販売事業部", "count": 1}, {"name": "岸田 麻代", "dept": "統合グロース戦略室", "count": 1}, {"name": "近江 渚", "dept": "DX戦略室", "count": 1}, {"name": "都志 祐紀也", "dept": "DX戦略室", "count": 1}, {"name": "長田 雅志", "dept": "役員", "count": 1}, {"name": "青江 優志", "dept": "リサイクル事業部", "count": 1}, {"name": "岡本 虎太朗", "dept": "リビルト販売事業部", "count": 1}, {"name": "柴田 翔矢", "dept": "リビルト販売事業部", "count": 1}, {"name": "槇野 裕太", "dept": "ケミカル販売事業部", "count": 1}, {"name": "石井 美咲", "dept": "戦略人事室", "count": 1}, {"name": "藤倉 楓人", "dept": "リサイクル事業部", "count": 1}, {"name": "PARK BYUNGGYU", "dept": "統括SCM本部", "count": 1}], "noReservation": {"total": 23, "detail": [{"name": "PARK BYUNGGYU", "count": 7}, {"name": "岡本虎太朗", "count": 3}, {"name": "林康介", "count": 3}, {"name": "清水賢太郎", "count": 2}, {"name": "宇野耕作", "count": 1}, {"name": "柴田翔矢", "count": 1}, {"name": "槇野裕太", "count": 1}, {"name": "津川千優", "count": 1}, {"name": "石井美咲", "count": 1}, {"name": "藤倉楓人", "count": 1}, {"name": "鎌田優輝", "count": 1}, {"name": "青江優志", "count": 1}]}};
 
 function el(tag, cls, html){
   const e = document.createElement(tag);
@@ -419,6 +419,10 @@ function growBar(fillNode, targetPercent){
 
 document.getElementById('periodLabel').textContent = '対象期間: ' + DATA.period;
 document.getElementById('footerPeriod').textContent = '対象期間: ' + DATA.period;
+document.getElementById('gridPeriod').textContent = '（' + DATA.periodShort + '）';
+document.getElementById('issueNote').textContent = DATA.periodShort + '、未記録・不備が1回以上あった方（計' + DATA.issues.length + '名）';
+document.getElementById('resErrTotal').textContent = DATA.kpi.error;
+document.getElementById('resPeriodTotal').textContent = '期間計' + DATA.noReservation.total + '回';
 
 animateNumber(document.getElementById('kpiTarget'), DATA.kpi.target, {suffix:'件'});
 animateNumber(document.getElementById('kpiOk'), DATA.kpi.ok, {suffix:'件', duration:1000});
@@ -426,7 +430,7 @@ animateNumber(document.getElementById('kpiErr'), DATA.kpi.error, {suffix:'件', 
 animateNumber(document.getElementById('kpiErrRate'), DATA.kpi.errRate, {suffix:'%', decimals:1, duration:1200});
 
 document.getElementById('heroHeadline').textContent =
-  '9月の実施率は ' + DATA.kpi.rate + '% でした';
+  DATA.periodShort + 'の実施率は ' + DATA.kpi.rate + '% でした';
 document.getElementById('heroSub').textContent =
   '対象' + DATA.kpi.target + '件のうち、開始・終了とも記録できたのは ' + DATA.kpi.ok + ' 件。' +
   '残り ' + DATA.kpi.error + ' 件は、完全未検知または乗車前・降車後いずれかの検知未記録でした。';
@@ -451,7 +455,7 @@ document.getElementById('heroSub').textContent =
   nums.innerHTML =
     '<span class="prev">' + DATA.previous.label + ' ' + prevRate + '%</span>' +
     '<span class="arrow">→</span>' +
-    '<span class="now">9月(月次) ' + nowRate + '%</span>';
+    '<span class="now">' + DATA.nowLabel + ' ' + nowRate + '%</span>';
   row.appendChild(nums);
 
   const track = el('div','trend-track');
